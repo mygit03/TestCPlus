@@ -25,14 +25,29 @@ int main(int argc, char *argv[])
 
     p = add_ret;                    //把函数 add_ret 的地址赋给函数指针 p
     int sum = p( a, b );            //调用函数指针
-    cout << "foo:" << sum << endl;
+    cout << "int (*p)( int, int ):" << sum << endl;
     sum += add( a, b, p );          //调用回调函数
-    cout << "add:" << sum << endl;
+    cout << "int add(int a, int b, int (*p)(int, int)):" << sum << endl;
 
+    cout << "int (*p)( int, int ):" << endl;
     funcp = FileFunc;               //把函数 FileFunc 的地址赋给函数指针 funcp
     funcp();                        //调用函数指针
     funcp = EditFunc;               //把函数 EditFunc 的地址赋给函数指针 funcp
     (*funcp)();                     //调用函数指针
+
+    cout << "void(*pfunarr[2])():" << endl;
+    void(*pfunarr[2])();            //函数指针数组
+    pfunarr[0] = FileFunc;
+    pfunarr[1] = EditFunc;
+
+    pfunarr[0]();                   //函数指针数组调用
+    pfunarr[1]();
+
+    cout << "void(*(*ppfunarr)[2])():" << endl;
+    void(*(*ppfunarr)[2])();
+    ppfunarr = &pfunarr;             //函数指针数组指针赋值
+    (*ppfunarr)[0]();
+    (*ppfunarr)[1]();
 
     return 0;
 }
